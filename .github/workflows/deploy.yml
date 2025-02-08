@@ -17,6 +17,11 @@ jobs:
           mkdir -p public
           cp resume.pdf public/
 
+      - name: Configure Git user
+        run: |
+          git config --global user.email "wotb5ks@gmail.com"
+          git config --global user.name "Rulka"
+
       - name: Create gh-pages branch if it doesn't exist
         run: |
           git fetch origin
