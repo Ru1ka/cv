@@ -17,9 +17,19 @@ jobs:
           mkdir -p public
           cp resume.pdf public/
 
+      - name: Create gh-pages branch if it doesn't exist
+        run: |
+          git fetch origin
+          if ! git rev-parse --verify origin/gh-pages; then
+            git checkout --orphan gh-pages
+            git reset --hard
+            git commit --allow-empty -m "Initial gh-pages commit"
+            git push origin gh-pages
+            git checkout main
+          fi
+
       - name: Publish to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
-        
